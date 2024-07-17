@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Геометрические фигуры</title>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='css/test.css') }}"
+		/>
+	</head>
+	<body>
+		<div id="shapes-container">
+			<!-- Примеры фигур -->
+			<div class="shape" id="shape1" draggable="true"></div>
+			<div class="shape" id="shape2" draggable="true"></div>
+			<!-- Другие фигуры -->
+		</div>
+
+		<div id="target-container">
+			<!-- Целевые клетки -->
+			<div class="target" id="target1"></div>
+			<div class="target" id="target2"></div>
+			<!-- Другие клетки -->
+		</div>
+
+		<button onclick="sendResultsToServer()">Проверить</button>
+
+		<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+	</body>
+</html>

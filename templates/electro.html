@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" href="url(inter_bold.css)" />
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+		<style>
+			@font-face {
+				font-family: 'Inter Bold';
+				font-style: normal;
+				font-weight: 400;
+
+				src: local('Inter Bold'), url('/fonts/inter_bold.woff2') format('woff2'),
+					url('/fonts/inter_bold.woff') format('woff');
+			}
+
+			.container {
+				background-color: #102885;
+				border-radius: 20px;
+				padding-bottom: 20px;
+				padding-top: 20px;
+				padding-left: 10px;
+				padding-right: 10px;
+				width: 99%;
+				display: flex;
+				flex-wrap: wrap;
+				max-width: 100%;
+			}
+
+			body {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-family: 'Inter Bold', sans-serif;
+			}
+
+			.button-group {
+				display: flex;
+				flex-wrap: wrap;
+			}
+
+			h2 {
+				font-family: 'Inter', serif;
+				font-size: 36px;
+				margin-bottom: 5px;
+				font-family: 'Inter Bold', sans-serif;
+			}
+
+			form {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				padding-left: 5%;
+				font-size: 24px;
+				font-family: 'Inter Bold', sans-serif;
+			}
+
+			input[type='checkbox'] {
+				display: flex;
+				font-size: 24px;
+				align-items: stretch;
+				font-family: 'Inter Bold', sans-serif;
+			}
+
+			.incorrect {
+				color: red;
+			}
+
+			#result {
+				font-family: 'Inter Bold', sans-serif;
+				align-content: center;
+			}
+		</style>
+		<script>
+			axios
+				.get('https://api.example.com/data')
+				.then(response => {
+					console.log(response.data)
+				})
+				.catch(error => {
+					console.error(error)
+				})
+
+			function showResult() {
+				let totalQuestions = 0
+				let score = 0
+				let incorrectAnswers = []
+
+				// Проверяем ответы
+				let question1Answer = document.querySelector(
+					'input[name="question1"]:checked'
+				)
+				if (question1Answer && question1Answer.value === 'a') {
+					score += 1
+				} else {
+					incorrectAnswers.push('Вопрос 1')
+				}
+				totalQuestions++
+
+				let question2Answer = document.querySelector(
+					'input[name="question2"]:checked'
+				)
+				if (question2Answer && question2Answer.value === 'b') {
+					score += 1
+				} else {
+					incorrectAnswers.push('Вопрос 2')
+				}
+				totalQuestions++
+
+				let question3Answer = document.querySelector(
+					'input[name="question3"]:checked'
+				)
+				if (question3Answer && question3Answer.value === 'c') {
+					score += 1
+				} else {
+					incorrectAnswers.push('Вопрос 3')
+				}
+				totalQuestions++
+
+				let question4Answer = document.querySelector(
+					'input[name="question4"]:checked'
+				)
+				if (question4Answer && question4Answer.value === 'd') {
+					score += 1
+				} else {
+					incorrectAnswers.push('Вопрос 4')
+				}
+				totalQuestions++
+
+				let question5Answer = document.querySelector(
+					'input[name="question5"]:checked'
+				)
+				if (question5Answer && question5Answer.value === 'e') {
+					score += 1
+				} else {
+					incorrectAnswers.push('Вопрос 5')
+				}
+				totalQuestions++
+
+				let question6Answer = document.querySelector(
+					'input[name="question6"]:checked'
+				)
+				if (question6Answer && question6Answer.value === 'f') {
+					score += 1
+				} else {
+					incorrectAnswers.push('Вопрос 6')
+				}
+				totalQuestions++
+
+				let question7Answer = document.querySelector(
+					'input[name="question7"]:checked'
+				)
+				if (question7Answer && question7Answer.value === 'q') {
+					score += 1
+				} else {
+					incorrectAnswers.push('Вопрос 7')
+				}
+				totalQuestions++
+
+				let question8Answer = document.querySelector(
+					'input[name="question8"]:checked'
+				)
+				if (question8Answer && question8Answer.value === 'w') {
+					score += 1
+				} else {
+					incorrectAnswers.push('Вопрос 8')
+				}
+				totalQuestions++
+
+				// Отображаем результат
+				let resultDiv = document.getElementById('result')
+				resultDiv.innerHTML = '<h2>Результат:</h2>'
+				resultDiv.innerHTML +=
+					'<p>Вы набрали ' + score + ' из ' + totalQuestions + ' баллов.</p>'
+				resultDiv.innerHTML +=
+					'<p>Максимальный балл: ' + totalQuestions + '.</p>'
+
+				fetch('/addscore', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ score: score }),
+				})
+					.then(response => response.json())
+					.then(data => {
+						alert(score + ' баллов') // Вывод сообщения от сервера
+					})
+					.catch(error => {
+						console.error('Error:', error)
+					})
+
+				// Подсвечиваем неверные ответы красным
+				for (let i = 0; i < incorrectAnswers.length; i++) {
+					let question = incorrectAnswers[i]
+					let questionElement = document.getElementById(question)
+					questionElement.classList.add('incorrect')
+				}
+			}
+		</script>
+
+		<script>
+			function checkAnswer() {
+				const answerInput = document.getElementById('answer')
+				const result = document.getElementById('result')
+
+				const correctAnswer = 'Инструкция'
+				const userAnswer = answerInput.value.toLowerCase() // приводим ответ к нижнему регистру
+
+				if (userAnswer === correctAnswer) {
+					result.textContent = 'Верно!'
+					result.style.color = 'green'
+				} else {
+					result.textContent = 'Неверно!'
+					result.style.color = 'red'
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<div class="font">
+			<div class="container">
+				<div class="button-group">
+					<a href="index.html">
+						<img
+							src="{{ url_for('static', filename = 'img/УГОК ТЕСТ.svg')}}"
+							style="margin-left: 20px; margin-top: 10px"
+						/>
+					</a>
+
+					<a href="index.html">
+						<img
+							src="{{ url_for('static', filename = 'img/главная.svg')}}"
+							style="padding-right: 0px; padding-left: 180%; margin-top: 15px"
+						/>
+					</a>
+
+					<a href="index.html">
+						<img
+							src="{{ url_for('static', filename = 'img/все тесты.svg')}}"
+							style="margin-top: 15px; margin-left: 200%"
+						/>
+					</a>
+				</div>
+			</div>
+			<br />
+			<h1
+				style="
+					font-family: Inter Bold;
+					font-size: bold;
+					text-align: center;
+					font-size: 54px;
+				"
+			>
+				Тест для электросварщиков
+			</h1>
+
+			<form id="quizForm">
+				<h2>1. Чем опасна электрическая дуга для человека?</h2>
+				<input type="checkbox" name="question1" value="a" />Выделяет слепящие и
+				невидимые лучиВыделяет только слепящие и инфракрасные лучи<br />
+				<input type="checkbox" name="question2" value="" />Выделяет только
+				ультрафиолетовые лучи<br />
+				<input type="checkbox" name="question3" value="" />Выделяет только
+				слепящие и инфракрасные лучи<br />
+				<input type="checkbox" name="question4" value="" />Выделяет только
+				слепящие лучи <br />
+
+				<h2>
+					2. Кто может подключать и отключать от сети электросварочные агрегаты?
+				</h2>
+				<input type="checkbox" name="question1" value="" />Любой работник<br />
+				<input type="checkbox" name="question2" value="b" /> Электротехнический
+				персонал с квалификационной группой электробезопасности не ниже
+				третьей<br />
+				<input type="checkbox" name="question3" value="" /> Электротехнический
+				персонал с любой квалификацией электробезопасности<br />
+				<input type="checkbox" name="question4" value="" /> Электротехнический
+				персонал со второй квалификационной группой электробезопасности <br />
+
+				<h2>
+					3. Что обязан изучить электросварщик по эксплуатации электросварочного
+					оборудования, на котором ему предстоит работать?
+				</h2>
+				<div id="question">
+					<label for="answer">Ответ:</label><br /><br />
+					<input type="text" id="answer" /> <br /><br />
+					<button type="button" onclick="checkAnswer(event)">Проверить</button>
+				</div>
+
+				<p id="mimi"></p>
+
+				<script>
+					function checkAnswer(event) {
+						event.preventDefault() // предотвращаем перезагрузку страницы
+
+						const answerInput = document.getElementById('answer')
+						const mimi = document.getElementById('mimi')
+
+						const correctAnswers = [
+							'инструкция',
+							'регулятор сварочного тока',
+							'предохранитель',
+						]
+						const userAnswer = answerInput.value.toLowerCase()
+
+						if (correctAnswers.includes(userAnswer)) {
+							mimi.textContent = 'Верно!'
+							mimi.style.color = 'green'
+
+							answerInput.style.borderColor = 'green'
+						} else {
+							mimi.textContent = 'Неверно!'
+							mimi.style.color = 'red'
+
+							answerInput.style.borderColor = 'red'
+						}
+					}
+
+					window.onload = function () {
+						const savedAnswer = localStorage.getItem('userAnswer')
+
+						if (savedAnswer) {
+							const answerInput = document.getElementById('answer')
+							answerInput.value = savedAnswer
+						}
+					}
+					window.onload = function () {
+						const savedAnswer = localStorage.getItem('userAnswer')
+						const answerInput = document.getElementById('answer')
+
+						if (savedAnswer) {
+							answerInput.value = savedAnswer
+						}
+
+						answerInput.addEventListener('input', function () {
+							localStorage.setItem('userAnswer', answerInput.value)
+						})
+					}
+				</script>
+
+				<h2>
+					4. Электросварочное оборудование, устанавливаемое на открытом воздухе,
+					должно быть?
+				</h2>
+				<input type="checkbox" name="question1" value="" /> В закрытом
+				исполнении и устанавливаться под навесом из несгораемого материала во
+				время погоды без осадков<br />
+				<input type="checkbox" name="question2" value="" /> В открытом
+				исполнении и устанавливаться под навесом из несгораемого материала в
+				погоду без осадков<br />
+				<input type="checkbox" name="question3" value="c" /> В закрытом
+				исполнении и устанавливаться без навеса из несгораемого материала в
+				любую погоду<br />
+				<input type="checkbox" name="question4" value="" /> В закрытом
+				исполнении и устанавливаться под навесом из несгораемого материала в
+				любую погоду<br />
+
+				<h2>
+					5. Ситуация: у Вас есть металлические части электросварочного
+					оборудования. Вследствие Ваших действий, они оказались под
+					напряжением. Выберите возможную причину и необходимые меры
+				</h2>
+				<input type="checkbox" name="question1" value="" /> Напряжение появилось
+				вследствие нарушения изоляции. Вы можете воспользоваться заземлением
+				одного аппарата для заземления другого<br />
+				<input type="checkbox" name="question2" value="" /> Напряжение появилось
+				вследствие сохранения изоляции. Вы можете воспользоваться заземлением
+				одного аппарата для заземления другого<br />
+				<input type="checkbox" name="question3" value="" /> Напряжение появилось
+				вследствие сохранения изоляции. Запрещается пользоваться заземлением
+				одного аппарата для заземления другого<br />
+				<input type="checkbox" name="question4" value="d" /> Напряжение
+				появилось вследствие нарушения изоляции. Запрещается пользоваться
+				заземлением одного аппарата для заземления другого <br />
+
+				<h2>
+					6. По чьему разрешению должны выполняться электросварочные работы в
+					замкнутых емкостях?
+				</h2>
+				<input type="checkbox" name="question5" value="e" /> Должны выполняться
+				по специальному разрешению администрации с оформлением наряда-допуска<br />
+				<input type="checkbox" name="question2" value="" /> Могут выполняться по
+				специальному разрешению без администрации с оформлением
+				наряда-допуска<br />
+				<input type="checkbox" name="question3" value="" /> Должны выполняться
+				по специальному разрешению администрации без оформления
+				наряда-допуска<br />
+				<input type="checkbox" name="question4" value="" /> Могут выполняться
+				без специального разрешения администрации с оформлением
+				наряда-допуска<br />
+
+				<h2>
+					7. Что запрещается хранить в местах производства сварочных работ?
+				</h2>
+				<input type="checkbox" name="question1" value="" /> Склад спецодежды<br />
+				<input type="checkbox" name="question6" value="f" /> Огнеопасные
+				материалы (бензин, керосин, ацетон, спирт, Уайт-спирит и др.) <br />
+				<input type="checkbox" name="question3" value="" /> Инструменты<br />
+				<input type="checkbox" name="question4" value="" />Средства
+				пожаротушения<br />
+
+				<h2>
+					8.Кабели электросварочных аппаратов должны располагаться от
+					трубопроводов (шлангов) с кислородом на расстоянии
+				</h2>
+				<input type="checkbox" name="question7" value="q" /> Не менее 0,5 м, а
+				от трубопроводов ацетилена и других горючих газов не менее 1 м.<br />
+				<input type="checkbox" name="question2" value="" /> Не менее 0,5 м, а от
+				трубопроводов ацетилена и других горючих газов не менее 2 м.<br />
+				<input type="checkbox" name="question3" value="" /> Не менее 0,8 м, а от
+				трубопроводов ацетилена и других горючих газов не менее 1 м.<br />
+				<input type="checkbox" name="question4" value="" /> Не менее 1 м, а от
+				трубопроводов ацетилена и других горючих газов не менее 2 м.<br />
+
+				<h2>9. Что Вам категорически запрещено перед началом работы?</h2>
+				<input type="checkbox" name="question1" value="" />Пройти в
+				установленном порядке предсменный медицинский осмотр.<br />
+				<input type="checkbox" name="question2" value="" />Сообщить медицинскому
+				работнику подробные сведения обо всех изменениях состояния своего
+				здоровья, а также обстоятельствах, влияющих на трудоспособность и
+				готовность к работе
+				<br />
+				<input type="checkbox" name="question8" value="w" /> Вы можете обойтись
+				без медицинского работника<br />
+				<input type="checkbox" name="question4" value="" />Получить от мастера
+				участка под подпись наряд- задание<br />
+
+				<!--  <h2>10.Чем должны быть оборудованы электросварочные установки? </h2>
+        <div id="question">
+<label for="answer">Ответ:</label><br><br>
+<input type="text" id="answer" /> <br><br>
+<button type="button">Проверка</button>
+</div>
+
+<p id="nini"></p>
+
+<script>
+    const answerInput = document.getElementById("answer");
+    const nini = document.getElementById("nini");
+
+    const correctAnswers = ["инструкция", "регулятор сварочного тока", "предохранитель"];
+    const userAnswer = answerInput.value.toLowerCase();
+
+    if (correctAnswers.includes(userAnswer)) {
+    nini.textContent = "Верно!";
+    nini.style.color = "green";
+
+    answerInput.style.borderColor = "green";
+    } else {
+    nini.textContent = "Неверно!";
+    nini.style.color = "red";
+
+    answerInput.style.borderColor = "red";
+    }
+}
+
+window.onload = function() {
+    const savedAnswer = localStorage.getItem("userAnswer");
+
+    if (savedAnswer) {
+    const answerInput = document.getElementById("answer");
+    answerInput.value = savedAnswer;
+    }
+}
+window.onload = function() {
+const savedAnswer = localStorage.getItem("userAnswer");
+const answerInput = document.getElementById("answer");
+
+if (savedAnswer) {
+    answerInput.value = savedAnswer;
+}
+
+answerInput.addEventListener("input", function() {
+    localStorage.setItem("userAnswer", answerInput.value);
+});
+}
+</script>-->
+
+				<br />
+				<br />
+				<input
+					href="/"
+					type="button"
+					value="Показать результат"
+					onclick="showResult()"
+				/>
+				<div id="result"></div>
+			</form>
+		</div>
+	</body>
+</html>

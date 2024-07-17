@@ -1,0 +1,20 @@
+.menu {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	background-color: #102885;
+	border-radius: 20px;
+	padding: 20px;
+	max-width: 100%;
+	max-height: 100px;
+	position: fixed;
+}
+.menu-item {
+	margin: 20px;
+	cursor: pointer;
+}
+.menu-item img {
+	width: 400px;
+	height: 400px;
+}

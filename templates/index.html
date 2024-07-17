@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="{{ url_for('static', filename='css/main.css') }}"
+		/>
+		<title>Тест</title>
+		<style>
+			body {
+				background-color: #f0f0f0;
+				font-family: Arial, sans-serif;
+			}
+
+			.container {
+				background-color: #102885;
+				border-radius: 20px;
+				padding: 20px;
+				display: flex;
+				flex-wrap: wrap;
+			}
+
+			.meow {
+				margin-top: 10%;
+				border-radius: 20px;
+				padding: 60px;
+				display: flex;
+				position: absolute;
+				width: 80%;
+				height: 55%;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background-image: url("{{ url_for('static', filename = 'img/Банер УГОК.ТЕСТ.svg')}}");
+				background-repeat: no-repeat;
+				background-size: 100%;
+			}
+
+			.sigma {
+				margin-top: 40%;
+				background-color: white;
+				border-radius: 20px;
+				padding: 20px;
+				display: flex;
+				justify-content: center;
+				overflow: hidden;
+				margin-bottom: 40%;
+			}
+
+			.button-group {
+				display: flex;
+				position: relative;
+				flex-wrap: wrap;
+			}
+
+			.button_meow {
+				display: flex;
+				gap: 70px;
+				padding: 50px 60px;
+				border-radius: 10px;
+				background-size: 10px 10px;
+				justify-content: space-between;
+				flex-wrap: wrap;
+				margin-top: 10%;
+			}
+			h1 {
+				display: flex;
+				border-radius: 20px;
+				color: #fff;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="button-group">
+				<a href="/">
+					<img
+						src="{{ url_for('static', filename = 'img/УГОК ТЕСТ.svg')}}"
+						style="margin-left: 20px; margin-top: 10px"
+					/>
+				</a>
+				<a href="/register">
+					<h1 style="margin-left: 40px; margin-top: 10px">Регистрация</h1>
+				</a>
+				<a href="/login">
+					<h1 style="margin-left: 40px; margin-top: 10px">Войти</h1>
+				</a>
+				<a href="/">
+					<img
+						src="{{ url_for('static', filename = 'img/главная.svg')}}"
+						style="padding-right: 0px; padding-left: 180%; margin-top: 15px"
+					/>
+				</a>
+
+				<a href="/child-site3">
+					<img
+						src="{{ url_for('static', filename = 'img/все тесты.svg')}}"
+						style="margin-top: 15px; margin-left: 200%"
+					/>
+				</a>
+			</div>
+		</div>
+		<div class="meow"></div>
+
+		<div class="sigma">
+			<div class="button_meow">
+				<a class="button" href="test/gaz.html"
+					><img src="{{ url_for('static', filename = 'img/gaz.svg')}}"
+				/></a>
+				<a class="button" href="test/electro.html"
+					><img src="{{ url_for('static', filename = 'img/electro.svg')}}"
+				/></a>
+				<a class="button" href="test/slesar.html"
+					><img src="{{ url_for('static', filename = 'img/slesar.svg')}}"
+				/></a>
+				<a class="button" href="test/vzrivnik.html"
+					><img src="{{ url_for('static', filename = 'img/vzrivnik.svg')}}"
+				/></a>
+			</div>
+		</div>
+	</body>
+</html>

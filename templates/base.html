@@ -1,0 +1,31 @@
+{% block head %}
+<div class="container">
+	<div class="button-group">
+		<a href="/child-site1">
+			<img
+				src="{{ url_for('static', filename = 'img/УГОК ТЕСТ.svg')}}"
+				style="margin-left: 20px; margin-top: 10px"
+			/>
+		</a>
+		<a href="/register">
+			<h1 style="margin-left: 40px; margin-top: 10px">Регистрация</h1>
+		</a>
+		<a href="/login">
+			<h1 style="margin-left: 40px; margin-top: 10px">Войти</h1>
+		</a>
+		<a href="/child-site2">
+			<img
+				src="{{ url_for('static', filename = 'img/главная.svg')}}"
+				style="padding-right: 0px; padding-left: 180%; margin-top: 15px"
+			/>
+		</a>
+
+		<a href="/child-site3">
+			<img
+				src="{{ url_for('static', filename = 'img/все тесты.svg')}}"
+				style="margin-top: 15px; margin-left: 200%"
+			/>
+		</a>
+	</div>
+</div>
+{% endblock %} {% block content %} {% endblock %}
